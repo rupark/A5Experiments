@@ -12,8 +12,8 @@ int main(int argc, char const *argv[])
     struct sockaddr_in serv_addr;
     char hello[18] = "Hello from client";
     char buffer[1024] = {0};
-    printf("In client");
-    printf("creating socket");
+    printf("In client\n");
+    printf("creating socket\n");
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
         printf("\n Socket creation error \n");

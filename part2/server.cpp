@@ -12,7 +12,7 @@
 
 int main(int argc, char const *argv[])
 {
-    printf("in Main");
+    printf("in Main\n");
     int server_fd, new_socket, valread;
     struct sockaddr_in address;
     int opt = 1;
@@ -20,8 +20,8 @@ int main(int argc, char const *argv[])
     char buffer[1024] = {0};
     char hello[18]  = "Hello from server";
 
-    printf("Starting server");
-    printf("Creating Socket");
+    printf("Starting server\n");
+    printf("Creating Socket\n");
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
@@ -29,7 +29,7 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE);
     }
 
-    printf("setsockopt");
+    printf("setsockopt\n");
     // Forcefully attaching socket to the port 8080
     if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
                    &opt, sizeof(opt)))
@@ -42,7 +42,7 @@ int main(int argc, char const *argv[])
     assert(inet_pton(AF_INET, "127.0.0.2", &address.sin_addr) > 0);
     address.sin_port = htons( 8080 );
 
-    printf("Binding server socket: 127.0.0.1");
+    printf("Binding server socket: 127.0.0.2\n");
     // Forcefully attaching socket to the port 8080
     if (bind(server_fd, (struct sockaddr *)&address,
              sizeof(address))<0)
@@ -51,13 +51,13 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE);
     }
 
-    printf("Listening");
+    printf("Listening\n");
     if (listen(server_fd, 3) < 0)
     {
         perror("listen");
         exit(EXIT_FAILURE);
     }
-    printf("Accepting");
+    printf("Accepting\n");
     if ((new_socket = accept(server_fd, (struct sockaddr *)&address,
                              (socklen_t*)&addrlen))<0)
     {
@@ -65,9 +65,9 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE);
     }
     printf("reading");
-    valread = read( new_socket , buffer, 1024);
-    printf("%s\n",buffer );
-    send(new_socket , hello , strlen(hello) , 0 );
-    printf("Hello message sent\n");
+//    valread = read( new_socket , buffer, 1024);
+//    printf("%s\n",buffer );
+//    send(new_socket , hello , strlen(hello) , 0 );
+//    printf("Hello message sent\n");
     return 0;
 }
