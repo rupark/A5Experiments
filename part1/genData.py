@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import csv
 
-with open('employee_file.csv', mode='w') as employee_file:
+with open('data.txt', mode='w') as employee_file:
         employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         for x in range(2000000):
                 employee_writer.writerow(['John', 'Smith', 'Accounting', 'November', 5, 300, 'Graduate', 1.5, 2.5, 49])
