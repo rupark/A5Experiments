@@ -5,4 +5,4 @@ tests.o:
 	clang++ --std=c++11 -c tests.cpp -o tests.o
 
 clean:
-	rm *.h.gch *.o a.out
+	rm *.h.gch *.o a.out *.gch.tmp
