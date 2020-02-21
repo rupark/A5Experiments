@@ -23,9 +23,10 @@ public:
     bool accept(Row& r) {
         bool intFlag = false;
         for (int i = 0; i < r.width(); i++) {
-            if (r.col_type(i) == 'I') {
-                r.set(i, 4);
-                intFlag = true;
+            if (r.col_type(i) == 'S') {
+                if (r.get_string(i)->size() > 8) {
+                    cout << r.get_string(i)->c_str() << endl;
+                }
             }
         }
         return intFlag;
@@ -37,5 +38,9 @@ public:
         is reponsible for cleaning up memory. */
      void join_delete(Rower* other) {
         delete other;
+    }
+
+    Rower* clone() {
+        return new changeIntsRower();
     }
 };
