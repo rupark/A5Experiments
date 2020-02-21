@@ -2,51 +2,82 @@
 // Created by Kate Rupar on 2/20/20.
 //
 #include "modified_dataframe.h"
+#include <stdio.h>
+#include <string.h>
 #include <time.h>
 
 void test() {
     /**
      * Making 2 Schema and 2 DataFrames
      */
-    Schema s("FISB");
+    Schema s("SSSSIISFFI");
     DataFrame df(s);
-    Schema s2("FISB");
+    Schema s2("SSSSIISFFI");
     DataFrame df2(s2);
 
     /**
      * Making a Row
      */
     Row  r(df.get_schema());
-    /**
-     * Populating the DataFrames
-     */
-    for(size_t i = 0; i <  50; i++) {
-        r.set(0,(float)3.0);
-        r.set(1,(int)i);
-        r.set(2,new String("what"));
-        r.set(3, (bool)true);
-        df.add_row(r);
-    }
 
-    /**
-     * Making a Row
-    */
-    Row  r2(df2.get_schema());
-    for(size_t i = 0; i <  50; i++) {
-        r2.set(0,(float)3.0);
-        r2.set(1,(int)i);
-        r2.set(2,new String("what"));
-        r2.set(3, (bool)true);
-        df2.add_row(r2);
+    long lineNumber = 1000000;
+
+    static const char filename[] = "data.txt";
+    FILE *file = fopen(filename, "r");
+
+    int count = 0;
+    if ( file != NULL )
+    {
+        char line[256]; /* or other suitable maximum line size */
+        while (fgets(line, sizeof line, file) != NULL) /* read a line */
+        {
+            if (count >= lineNumber)
+            {
+                break;
+            }
+            else
+            {
+                int i = 0;
+                char *p = strtok (line, ",");
+                char *array[10];
+
+                while (p != NULL)
+                {
+                    array[i++] = p;
+                    p = strtok (NULL, ",");
+                }
+
+                r.set(0, new String(array[0]));
+                r.set(1, new String(array[1]));
+                r.set(2, new String(array[2]));
+                r.set(3, new String(array[3]));
+                r.set(4, (int)atoi(array[4]));
+                r.set(5, (int)atoi(array[5]));
+                r.set(6, new String(array[6]));
+                r.set(7, (float)atof(array[7]));
+                r.set(8, (float)atof(array[8]));
+                r.set(9, (int)atoi(array[9]));
+
+                df.add_row(r);
+                df2.add_row(r);
+
+                count++;
+            }
+        }
+        fclose(file);
+    }
+    else
+    {
+        //file doesn't exist
     }
 
     sumRower& rower = *new sumRower();
 
+    cout << "=============sum============" << endl;
     //Speed of pmapg
     clock_t t = clock();
     df.pmap(rower);
     double thread_time = (clock() - t);
-    cout << "here" << endl;
     //Speed of map
     clock_t t2 = clock();
     df2.map(rower);
@@ -55,12 +86,21 @@ void test() {
     cout << normal_time << endl;
     cout << rower.sum << endl;
 
-//
-//    //Making sure Rower changed the dfs
-//    for(size_t i = 0; i <  50; i++) {
-//        GT_EQUALS(df.get_int(1, i), 4);
-//        GT_EQUALS(df2.get_int(1, i), 4);
-//    }
+
+    cout << "=============to 4============" << endl;
+    changeIntsRower& rower2 = *new changeIntsRower();
+    clock_t t3 = clock();
+    df.pmap(rower2);
+    double thread_time2 = (clock() - t3);
+    //Speed of map
+    clock_t t4 = clock();
+    df2.map(rower2);
+    double normal_time2 = (clock() - t4);
+    cout<< "Thread:" << endl;
+    cout << thread_time2 << endl;
+    cout<< "Normal:" << endl;
+    cout << normal_time2 << endl;
+    cout << df2.get_int(4, 1);
 
     exit(0);
 }
