@@ -5,7 +5,16 @@ tests.o:
 	clang++ --std=c++11 -c bench.cpp -o tests.o
 
 clean:
+	rm -rf file
+	rm -rf data.txt
+	rm -rf __MACOSX
 	rm *.h.gch *.o a.out
 
 run:
+	git clone https://github.com/rupark/file.git
+	unzip file/data.txt.zip
 	./a.out
+	rm -rf file
+	rm -rf __MACOSX
+	rm -rf data.txt
+	rm *.h.gch *.o a.out
