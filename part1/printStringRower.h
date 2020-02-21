@@ -9,13 +9,13 @@
 /**
  * A Rower with a purpose of converting every int to 4
  */
-class changeIntsRower : public Rower {
+class printStringRower : public Rower {
 public:
 
-    changeIntsRower() {
+    printStringRower() {
     }
 
-    ~changeIntsRower() {
+    ~printStringRower() {
     }
 
     //If the col_type is int, sets the value to 4
@@ -23,9 +23,10 @@ public:
     bool accept(Row& r) {
         bool intFlag = false;
         for (int i = 0; i < r.width(); i++) {
-            if (r.col_type(i) == 'I') {
-                r.set(i, 4);
-                intFlag = true;
+            if (r.col_type(i) == 'S') {
+                if (r.get_string(i)->size() > 8) {
+                    cout << r.get_string(i)->c_str() << endl;
+                }
             }
         }
         return intFlag;
@@ -35,7 +36,11 @@ public:
         split off will be joined.  There will be one join per split. The
         original object will be the last to be called join on. The join method
         is reponsible for cleaning up memory. */
-     void join_delete(Rower* other) {
+    void join_delete(Rower* other) {
         delete other;
+    }
+
+    Rower* clone() {
+        return new printStringRower();
     }
 };

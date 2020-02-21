@@ -28,7 +28,7 @@ public:
     }
 
     ~Thread_Map() {
-
+        delete[] columns;
     }
 
     /** Subclass responsibility, the body of the run method */

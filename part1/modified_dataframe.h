@@ -16,7 +16,7 @@
 #include "fielder.h"
 #include "schema.h"
 #include "row.h"
-#include "changeIntsRower.h"
+#include "printStringRower.h"
 #include "sumRower.h"
 #include "rower.h"
 #include <iostream>
@@ -274,6 +274,7 @@ public:
     /** This method clones the Rower and executes the map in parallel. Join is
     * used at the end to merge the results. */
     void pmap(Rower& r) {
+        cout << "here" << endl;
         Rower* r2 = r.clone();
         cout << "cloned" << endl;
         int halfway = nrow / 2;
@@ -285,6 +286,7 @@ public:
         th1->start();
 
         th2->start();
+        cout << "started" << endl;
         th1->join();
         // Wait for thread t2 to finish
         th2->join();
