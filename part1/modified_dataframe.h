@@ -274,22 +274,19 @@ public:
     /** This method clones the Rower and executes the map in parallel. Join is
     * used at the end to merge the results. */
     void pmap(Rower& r) {
-        cout << "here" << endl;
         Rower* r2 = r.clone();
-        cout << "cloned" << endl;
         int halfway = nrow / 2;
+
         Thread_Map* th1 = new Thread_Map(r, this->columns, schema, 0, halfway);
-        cout << halfway << endl;
-
         Thread_Map* th2 = new Thread_Map(*r2, this->columns, schema, halfway, nrow - 2);
-        cout << "th1" << endl;
-        th1->start();
 
+        th1->start();
         th2->start();
-        cout << "started" << endl;
+
         th1->join();
         // Wait for thread t2 to finish
         th2->join();
+
         r.join_delete(r2);
     }
 };

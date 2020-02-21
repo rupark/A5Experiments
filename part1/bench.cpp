@@ -20,16 +20,19 @@ void test() {
      */
     Row  r(df.get_schema());
 
+    //Number of lines to read
     long lineNumber = 50;
 
+    //Reading data.txt (we pulled this in our Makefile)
     static const char filename[] = "data.txt";
     FILE *file = fopen(filename, "r");
 
     int count = 0;
     if ( file != NULL )
     {
-        char line[256]; /* or other suitable maximum line size */
-        while (fgets(line, sizeof line, file) != NULL) /* read a line */
+        //Adding Rows to DataFrames
+        char line[256];
+        while (fgets(line, sizeof line, file) != NULL)
         {
             if (count >= lineNumber)
             {
@@ -71,9 +74,9 @@ void test() {
         //file doesn't exist
     }
 
+    //TESTING sumRower
+    cout << "=============sumRower============" << endl;
     sumRower& rower = *new sumRower();
-
-    cout << "=============sum============" << endl;
     //Speed of pmapg
     clock_t t = clock();
     df.pmap(rower);
@@ -82,12 +85,15 @@ void test() {
     clock_t t2 = clock();
     df2.map(rower);
     double normal_time = (clock() - t2);
+    cout<< "Thread:" << endl;
     cout << thread_time << endl;
+    cout<< "Normal:" << endl;
     cout << normal_time << endl;
-    cout << rower.sum << endl;
+    //We include this for testing purposes
+    //cout << rower.sum << endl;
 
-
-    cout << "=============to 4============" << endl;
+    //TESTING printStringRower
+    cout << "=============printStringRower============" << endl;
     printStringRower& rower2 = *new printStringRower();
     clock_t t3 = clock();
     df.pmap(rower2);
@@ -100,7 +106,6 @@ void test() {
     cout << thread_time2 << endl;
     cout<< "Normal:" << endl;
     cout << normal_time2 << endl;
-    cout << df2.get_int(4, 1);
 
     exit(0);
 }

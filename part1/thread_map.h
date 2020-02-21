@@ -11,6 +11,9 @@
 #include "rower.h"
 #include "column.h"
 
+/**
+ * Represents a Thread which Maps a Rower over a DataFrame
+ */
 class Thread_Map : public Thread {
 public:
     Column** columns;
@@ -31,7 +34,7 @@ public:
         delete[] columns;
     }
 
-    /** Subclass responsibility, the body of the run method */
+    /** Creates rows from this Threads columns and passes each Row to the Rower's accept method */
     void run() {
         Row* row = new Row(schema);
         for (size_t i = this->begin; i < this->end; i++) {
