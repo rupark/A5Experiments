@@ -16,7 +16,7 @@
 #include "fielder.h"
 #include "schema.h"
 #include "row.h"
-#include "changeIntsRower.h"
+#include "printStringRower.h"
 #include "sumRower.h"
 #include "rower.h"
 #include <iostream>

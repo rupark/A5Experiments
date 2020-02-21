@@ -88,7 +88,7 @@ void test() {
 
 
     cout << "=============to 4============" << endl;
-    changeIntsRower& rower2 = *new changeIntsRower();
+    printStringRower& rower2 = *new printStringRower();
     clock_t t3 = clock();
     df.pmap(rower2);
     double thread_time2 = (clock() - t3);

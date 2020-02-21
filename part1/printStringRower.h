@@ -9,13 +9,13 @@
 /**
  * A Rower with a purpose of converting every int to 4
  */
-class changeIntsRower : public Rower {
+class printStringRower : public Rower {
 public:
 
-    changeIntsRower() {
+    printStringRower() {
     }
 
-    ~changeIntsRower() {
+    ~printStringRower() {
     }
 
     //If the col_type is int, sets the value to 4
@@ -41,6 +41,6 @@ public:
     }
 
     Rower* clone() {
-        return new changeIntsRower();
+        return new printStringRower();
     }
 };
