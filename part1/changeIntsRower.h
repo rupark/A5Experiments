@@ -36,7 +36,7 @@ public:
         split off will be joined.  There will be one join per split. The
         original object will be the last to be called join on. The join method
         is reponsible for cleaning up memory. */
-     void join_delete(Rower* other) {
+    void join_delete(Rower* other) {
         delete other;
     }
 

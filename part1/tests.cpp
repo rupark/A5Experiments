@@ -20,7 +20,7 @@ void test() {
      */
     Row  r(df.get_schema());
 
-    long lineNumber = 1000000;
+    long lineNumber = 50;
 
     static const char filename[] = "data.txt";
     FILE *file = fopen(filename, "r");

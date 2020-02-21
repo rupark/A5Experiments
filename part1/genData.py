@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import csv
 
 with open('employee_file.csv', mode='w') as employee_file:

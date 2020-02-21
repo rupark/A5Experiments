@@ -44,13 +44,10 @@ public:
         is reponsible for cleaning up memory. */
     void join_delete(Rower* other) {
         sumRower* sr;
-        cout << "here" << endl;
         sr = dynamic_cast<sumRower*> (other);
-        cout << "here" << endl;
         if (sr == nullptr) {
             exit(1);
         }
-
         sum+=sr->sum;
         delete other;
     }

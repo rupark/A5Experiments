@@ -27,8 +27,8 @@ public:
     /** Copying constructor */
     Schema(Schema& from) {
         this->types = new String(*from.types);
-        this->col_names = new String*[1000*1000*1000];
-        this->row_names = new String*[1000*1000*1000];
+        this->col_names = new String*[1000];
+        this->row_names = new String*[1000];
         this->nrow = from.nrow;
         this->ncol = from.ncol;
     }
@@ -40,7 +40,7 @@ public:
     /** Create an empty schema **/
     Schema() {
         this->types = new String("");
-        this->col_names = new String*[1000*1000*1000];
+        this->col_names = new String*[1000];
         this->row_names = new String*[100*1000*1000];
         this->ncol = 0;
         this->nrow = 0;
@@ -53,8 +53,8 @@ public:
     Schema(const char* types) {
         this->types = new String(types);
 
-        this->col_names = new String*[1000*1000*1000];
-        this->row_names = new String*[1000*1000*1000];
+        this->col_names = new String*[1000];
+        this->row_names = new String*[1000];
 
         this->nrow = 0;
         this->ncol = this->types->size();
