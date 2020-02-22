@@ -1,4 +1,6 @@
-// Client side C/C++ program to demonstrate Socket programming 
+// EXAMPLE OF CLIENT
+// SOURCE: https://www.geeksforgeeks.org/socket-programming-cc/
+
 #include <stdio.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -39,5 +41,8 @@ int main(int argc, char const *argv[])
     printf("Hello message sent\n");
     valread = read( sock , buffer, 1024);
     printf("%s\n",buffer );
+
+    close(sock);
+
     return 0;
 } 

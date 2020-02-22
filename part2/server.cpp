@@ -1,4 +1,6 @@
 // Server side C/C++ program to demonstrate Socket programming
+// SOURCE: https://www.geeksforgeeks.org/socket-programming-cc/
+
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/socket.h>
@@ -22,6 +24,7 @@ int main(int argc, char const *argv[])
 
     printf("Starting server\n");
     printf("Creating Socket\n");
+
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
@@ -39,16 +42,20 @@ int main(int argc, char const *argv[])
     }
 
     address.sin_family = AF_INET;
-    assert(inet_pton(AF_INET, "127.0.0.3", &address.sin_addr) > 0);
+    assert(inet_pton(AF_INET, "127.0.0.2", &address.sin_addr) > 0);
     address.sin_port = htons( 8080 );
 
-    printf("Binding server socket: 127.0.0.3\n");
+    printf("Binding server socket: 127.0.0.2\n");
     // Forcefully attaching socket to the port 8080
     if (bind(server_fd, (struct sockaddr *)&address,
              sizeof(address))<0)
     {
-        perror("bind failed");
-        exit(EXIT_FAILURE);
+        // try again after closing server
+        close(server_fd);
+        if (bind(server_fd, (struct sockaddr *)&address, sizeof(address))<0) {
+            perror("bind failed");
+            exit(EXIT_FAILURE);
+        }
     }
 
     printf("Listening\n");
@@ -69,5 +76,9 @@ int main(int argc, char const *argv[])
     printf("%s\n",buffer );
     send(new_socket , hello , strlen(hello) , 0 );
     printf("Hello message sent\n");
+
+    close(server_fd);
+    printf("Closing socket\n");
+
     return 0;
 }
