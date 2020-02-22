@@ -10,7 +10,7 @@
 #include "rower.h"
 
 /**
- * A Rower with a purpose of converting every int to 4
+ * A Rower which returns the sum of the ints across all the Rows it visits
  */
 class sumRower : public Rower {
 public:
@@ -25,8 +25,7 @@ public:
 
     }
 
-    //If the col_type is int, sets the value to 4
-    //Returns true if the row contains an IntColumn
+    //Adds every int in the Row to sum
     bool accept(Row& r) {
         bool intFlag = false;
         for (int i = 0; i < r.width(); i++) {
@@ -52,6 +51,7 @@ public:
         delete other;
     }
 
+    //Returns a new sumRower
     Rower* clone() {
         return new sumRower();
     }

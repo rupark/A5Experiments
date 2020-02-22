@@ -7,7 +7,7 @@
 #include "rower.h"
 
 /**
- * A Rower with a purpose of converting every int to 4
+ * A Rower with a purpose of printing every String with a length greater than 8
  */
 class printStringRower : public Rower {
 public:
@@ -18,8 +18,7 @@ public:
     ~printStringRower() {
     }
 
-    //If the col_type is int, sets the value to 4
-    //Returns true if the row contains an IntColumn
+    //If the row contains a String with a length greater than 7, prints that String
     bool accept(Row& r) {
         bool intFlag = false;
         for (int i = 0; i < r.width(); i++) {
@@ -40,6 +39,7 @@ public:
         delete other;
     }
 
+    //Returns a new printStringRower
     Rower* clone() {
         return new printStringRower();
     }
