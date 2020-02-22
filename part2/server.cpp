@@ -42,10 +42,11 @@ int main(int argc, char const *argv[])
     }
 
     address.sin_family = AF_INET;
-    assert(inet_pton(AF_INET, "127.0.0.2", &address.sin_addr) > 0);
+    assert(inet_pton(AF_INET, argv[2], &address.sin_addr) > 0);
     address.sin_port = htons( 8080 );
 
-    printf("Binding server socket: 127.0.0.2\n");
+    printf("Binding server socket:");
+    printf("%s\n", argv[2]);
     // Forcefully attaching socket to the port 8080
     if (bind(server_fd, (struct sockaddr *)&address,
              sizeof(address))<0)
